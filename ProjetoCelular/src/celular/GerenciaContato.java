@@ -13,8 +13,8 @@ public class GerenciaContato {
 
 	int i = 0, identificacao;
 
-	public GerenciaContato(ArrayList<Contato> cls) {
-		contatos = cls;
+	public GerenciaContato(ArrayList<Contato> cts) {
+		contatos = cts;
 		ent = new Scanner(System.in);
 	}
 

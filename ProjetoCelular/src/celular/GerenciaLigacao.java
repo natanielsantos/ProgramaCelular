@@ -1,5 +1,6 @@
 package celular;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class GerenciaLigacao {
 	private Contato destinatario;
 	private ArrayList<Ligacao> ligacoes;
 	private ArrayList<Contato> contatos;
+	
+	private static boolean loading = true;
 
 	String nome, telefone, conteudo;
 	LocalDate data;
@@ -25,7 +28,7 @@ public class GerenciaLigacao {
 		ent = new Scanner(System.in);
 	}
 
-	public void enviar() {
+	public void enviar(){
 
 		int res, posiCont;
 
@@ -36,6 +39,24 @@ public class GerenciaLigacao {
 			System.out.println("Para quem é a ligacao [informe o numero do contaoto] ");
 			posiCont = ent.nextInt();
 			ent.nextLine();
+			
+			try {
+				loading("Ligando...");
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("1-ATENDER / 2-RECUSAR");
+			res = ent.nextInt();
+		    if(res == 1){
+		    	System.out.println("Atendido!");
+		    	loading = false;
+		    }else{
+		    	System.out.println("Cancelado!");
+		    	loading = false;
+		    }
 
 			destinatario = contatos.get(posiCont);
 
@@ -107,5 +128,28 @@ public class GerenciaLigacao {
 		} else {
 			System.out.println("         *****==[Não existem ligacoes cadastrados!]==*****");
 		}
+	}
+	
+	
+	private static synchronized void loading(String msg) throws IOException, InterruptedException {
+	    System.out.println(msg);
+	    Thread th = new Thread() {
+	        @Override
+	        public void run() {
+	        	try {
+	                System.out.write("\r|".getBytes());
+	                while(loading) {
+	                    System.out.write("|".getBytes());
+	                    Thread.sleep(500);
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    };
+	    th.start();
+	    
 	}
 }
