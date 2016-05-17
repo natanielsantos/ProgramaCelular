@@ -28,8 +28,9 @@ public class GerenciaContato {
 		do {
 			System.out.println("Identificação: ");
 			identificacao = ent.nextInt();
+			ent.nextLine();
 			System.out.println("Digite o nome do Contato : ");
-			nome = ent.next();
+			nome = ent.nextLine();
 			System.out.println("Telefone                 : ");
 			telefone = ent.next();
 

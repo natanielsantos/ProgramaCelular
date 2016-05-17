@@ -44,7 +44,7 @@ public class Ligacao {
 	}
 	
 	public void imprimir(){
-		System.out.println("Você recebeu uma ligação de " + destinatario.getNome() + " no dia " + data + " as " + hora);
+		System.out.println("Você fez uma ligação para " + destinatario.getNome() + " no dia " + data + " as " + hora);
 		System.out.println("---------------------------------------------");
 	}
 	
